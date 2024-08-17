@@ -5,8 +5,8 @@ on:
       - main
       - deployment
     paths:
-      - "parking/frontend-parking/**"
-      - ".github/workflows/frontend-parking*"
+      - "frontend/"
+      - ".github/workflows/frontend-build.yml"
   pull_request:
     types: [opened, reopened, synchronize]
 
@@ -68,6 +68,6 @@ jobs:
           docker pull ghcr.io/somnath-more/frontend-parking:${{ github.sha }}
           docker stop frontend-parking || true
           docker rm frontend-parking || true
-          docker run -itd -p 8080:80 --name=frontend-parking ghcr.io/somnath-more/frontend-parking:${{ github.sha }}
+          docker run -itd -p 7070:80 --name=frontend-parking ghcr.io/somnath-more/frontend-parking:${{ github.sha }}
           echo "Deployed on EC2 successfully!"
           EOF
