@@ -5,7 +5,7 @@ on:
       - main
       - deployment
     paths:
-      - "frontend/"
+      - "frontend/**"
       - ".github/workflows/frontend-build.yml"
   pull_request:
     types: [opened, reopened, synchronize]
