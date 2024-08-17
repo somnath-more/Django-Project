@@ -15,26 +15,12 @@ import axios from "axios";
 import AddVehicleForm from "../AddVehicleForm";
 import ViewSession from "../ViewSession";
 
-interface User {
-  id: string;
-  email: string;
-  password: string;
-}
-
 interface Vehicle {
   id: string;
   number: string;
   make: string;
   model: string;
   ownerName: string;
-}
-
-interface ParkingSession {
-  id: string;
-  vehicle_id: string;
-  check_in_time: string;
-  check_out_time: string | null;
-  amount_due: string;
 }
 
 const VehicleTable: React.FC = () => {
