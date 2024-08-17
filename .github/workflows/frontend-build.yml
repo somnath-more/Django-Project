@@ -1,0 +1,73 @@
+name: Frontend parking React
+on:
+  push:
+    branches:
+      - main
+      - deployment
+    paths:
+      - "parking/frontend-parking/**"
+      - ".github/workflows/frontend-parking*"
+  pull_request:
+    types: [opened, reopened, synchronize]
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  frontend-parking:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: frontend/
+
+    steps:
+      - name: Checkout the code repo
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build the app
+        run: npm  run build
+
+      - name: Login to GHCR Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.PAT_TOKEN }}
+      - name: Build and push
+        uses: docker/build-push-action@v6
+        with:
+          push: true
+          context: frontend/
+          tags: |
+            ghcr.io/somnath-more/frontend-parking:latest
+            ghcr.io/somnath-more/frontend-parking:${{ github.sha}}
+
+      #  - name: Set up AWS CLI
+      #    uses: aws-actions/configure-aws-credentials@v1
+      #    with:
+      #           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      #           aws-secret-access-key: ${{ secrets.AWS_ACCESS_KEY }}
+      #           aws-region: us-east-2
+
+      - name: Deploy on EC2
+        env:
+          EC2_HOST: ${{ secrets.EC2_HOST }}
+          EC2_USER: ${{ secrets.EC2_USER }}
+          EC2_KEY: ${{ secrets.EC2_KEY }}
+          PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
+        run: |
+          echo "$EC2_KEY" > key.pem
+          chmod 400 key.pem
+          ssh -o StrictHostKeyChecking=no -i key.pem $EC2_HOST@$EC2_USER << EOF
+          docker login ghcr.io -u ${{ github.actor }} -p $PAT_TOKEN
+          docker pull ghcr.io/somnath-more/frontend-parking:${{ github.sha }}
+          docker stop frontend-parking || true
+          docker rm frontend-parking || true
+          docker run -itd -p 8080:80 --name=frontend-parking ghcr.io/somnath-more/frontend-parking:${{ github.sha }}
+          echo "Deployed on EC2 successfully!"
+          EOF

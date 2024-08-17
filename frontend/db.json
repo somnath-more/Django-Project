@@ -1,0 +1,102 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "email": "user1@example.com",
+      "password": "password1"
+    },
+    {
+      "id": "2",
+      "email": "user2@example.com",
+      "password": "password2"
+    }
+  ],
+  "vehicles": [
+    {
+      "id": "1",
+      "number": "ABC123",
+      "make": "Toyota",
+      "model": "Corolla",
+      "ownerName": "somnath"
+    },
+    {
+      "id": "2",
+      "number": "XYZ789",
+      "make": "Honda",
+      "model": "Civic",
+      "ownerName": "sachin"
+    },
+    {
+      "id": "3",
+      "number": "LMN456",
+      "make": "Ford",
+      "model": "Focus",
+      "ownerName": "shivkumar"
+    }
+  ],
+  "parking_sessions": [
+    {
+      "id": "1",
+      "vehicle_id": 1,
+      "check_in_time": "2024-08-17T10:00:00Z",
+      "check_out_time": null,
+      "amount_due": "0"
+    },
+    {
+      "id": "2",
+      "vehicle_id": 2,
+      "check_in_time": "2024-08-17T09:00:00Z",
+      "check_out_time": null,
+      "amount_due": "0"
+    },
+    {
+      "id": "3",
+      "vehicle_id": 3,
+      "check_in_time": "2024-08-17T08:00:00Z",
+      "check_out_time": "2024-08-17T10:30:00Z",
+      "amount_due": "10.00"
+    },
+    {
+      "id": "1",
+      "vehicle_id": 1,
+      "check_in_time": "2024-08-17T10:00:00Z",
+      "check_out_time": null,
+      "amount_due": "0"
+    },
+    {
+      "id": "1",
+      "vehicle_id": 3,
+      "check_in_time": "2024-08-17T10:00:00Z",
+      "check_out_time": null,
+      "amount_due": "0"
+    },
+    {
+      "id": "1",
+      "vehicle_id": 10,
+      "check_in_time": "2024-08-17T10:00:00Z",
+      "check_out_time": null,
+      "amount_due": "0"
+    },
+    {
+      "id": "1723909664376",
+      "vehicle_id": "1",
+      "check_in_time": "9889",
+      "check_out_time": "909090",
+      "amount_due": "808998"
+    },
+    {
+      "id": "1723909673628",
+      "vehicle_id": "1",
+      "check_in_time": "9889",
+      "check_out_time": "909090",
+      "amount_due": "808998"
+    },
+    {
+      "id": "1723909717148",
+      "vehicle_id": "3",
+      "check_in_time": "sadoidio",
+      "check_out_time": "aqkidqa",
+      "amount_due": "aq7987824"
+    }
+  ]
+}
